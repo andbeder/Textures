@@ -17,8 +17,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public abstract class Operation implements Comparable<Operation> {
-	private Parameters param;
-	private Redrawable redraw;
+    private Redrawable redraw;
 	private JPanel controlPanel;
 	private Map<String, Component> controls;
 	protected enum CONTROL_TYPE {INT, DOUBLE, SLIDER, SEED};
@@ -51,17 +50,20 @@ public abstract class Operation implements Comparable<Operation> {
 	        controls.put(name, slider);
 	        controlPanel.add(slider);
 	        break;
-		case SEED:
-			JTextField seedField = new JTextField(String.format("%d", (long)def), 8); // FIX: store to seedField
-		    controls.put(name, seedField);
-		    controlPanel.add(seedField);
-		    JButton randomSeedButton = new JButton("Random");
-		    randomSeedButton.addActionListener(e -> {
-		        String newSeed = String.valueOf(new Random().nextInt(Integer.MAX_VALUE));
-		        seedField.setText(newSeed);
-		    });
-		    controlPanel.add(randomSeedButton);
-		    break;
+                case SEED:
+                    JTextField seedField = new JTextField(String.format("%d", (long) def), 8);
+                    controls.put(name, seedField);
+                    controlPanel.add(seedField);
+                    JButton randomSeedButton = new JButton("Random");
+                    randomSeedButton.addActionListener(e -> {
+                        String newSeed = String.valueOf(new Random().nextInt(Integer.MAX_VALUE));
+                        seedField.setText(newSeed);
+                    });
+                    controlPanel.add(randomSeedButton);
+                    if (this instanceof com.beder.texture.noise.NoiseOperation) {
+                        ((com.beder.texture.noise.NoiseOperation) this).setSeedField(seedField);
+                    }
+                    break;
 		default:
 			break;
 		}

@@ -17,20 +17,19 @@ import com.beder.texture.Redrawable;
 
 public abstract class NoiseOperation extends Operation {
 
-	private JTextField seedField;
-	private JButton randomSeedButton;
+        private JTextField seedField;
 	private BufferedImage result;
 	private ImagePair input;
 	private Parameters lastPar;
 	private final static String PARAM_SEED = "Seed";
 
-	public NoiseOperation(Redrawable r) {
-		super(r);
-		result = null;
-		lastPar = new Parameters();
-		long seed = new Random().nextInt(Integer.MAX_VALUE);
-		addParameter(PARAM_SEED, CONTROL_TYPE.SEED, seed);
-	}
+        public NoiseOperation(Redrawable r) {
+                super(r);
+                result = null;
+                lastPar = new Parameters();
+                long seed = new Random().nextInt(Integer.MAX_VALUE);
+                addParameter(PARAM_SEED, CONTROL_TYPE.SEED, seed);
+        }
 
     /**
      * Called by child class to add random seed controls on the edit panel
@@ -73,10 +72,15 @@ public abstract class NoiseOperation extends Operation {
 	    return input;
 	}
 
-	public long getSeed() {
+        public long getSeed() {
         long seed = Long.parseLong(seedField.getText());
-		return seed;
-	}
+                return seed;
+        }
+
+        /** Setter used by Operation when creating the seed field component. */
+        public void setSeedField(JTextField field) {
+            this.seedField = field;
+        }
 
 	public ImagePair getInput() {
 		return input;
