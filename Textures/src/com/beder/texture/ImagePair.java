@@ -9,6 +9,7 @@ public class ImagePair {
 	public BufferedImage left, right;
 	
 	private ImagePair() {
+		
 	} 
 
 	public ImagePair(int res) {
